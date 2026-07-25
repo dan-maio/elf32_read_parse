@@ -52,6 +52,16 @@ inline std::string_view name_at(std::span<const std::byte> tab, std::uint32_t of
     return std::string_view(p, len);
 }
 
+struct rel_slot {
+    std::uint32_t r_offset;
+    std::uint32_t r_info;
+};
+
+inline void for_each_rel(std::span<const std::byte> rel, auto fn) {
+    for (std::size_t o = 0; o + 8 <= rel.size(); o += 8)
+        fn(load_word(rel, o), load_word(rel, o + 4));
+}
+
 } // namespace loader::detail
 
 #endif // LOADER_DETAIL_BYTES_HPP
