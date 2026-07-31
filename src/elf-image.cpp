@@ -37,9 +37,6 @@ result<elf_image> elf_image::parse(byte_source& src) noexcept {
         h.e_machine != elf::EM_ARM)
         return loader::unexpected(error::NOT_ARM32);
 
-    if (h.e_type != elf::ET_DYN)
-        return loader::unexpected(error::NOT_SHARED_OBJECT);
-
     return elf_image(src, h);
 }
 

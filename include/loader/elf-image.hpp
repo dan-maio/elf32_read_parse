@@ -18,12 +18,11 @@ namespace loader {
 class elf_image {
 public:
     /**
-     * @brief Validate magic/class/data/machine/type and read the ELF header.
+     * @brief Validate magic/class/data/machine and read the ELF header.
      * @param src Byte source positioned at the start of the object.
      * @return The parsed image, or an Error.
      * @retval error::NOT_ELF          Bad magic.
      * @retval error::NOT_ARM32        Not little-endian 32-bit ARM.
-     * @retval error::NOT_SHARED_OBJECT e_type is not ET_DYN.
      */
     static result<elf_image> parse(byte_source& src) noexcept;
 

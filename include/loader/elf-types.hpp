@@ -110,6 +110,8 @@ constexpr unsigned char ELFDATA2LSB = 1; ///< e_ident[EI_DATA] for little-endian
 constexpr int EI_CLASS = 4; ///< Index of the class byte.
 constexpr int EI_DATA  = 5; ///< Index of the data-encoding byte.
 
+constexpr half ET_REL = 1;  ///< Relocatable file type.
+constexpr half ET_EXEC = 2; ///< Executable file type.
 constexpr half ET_DYN = 3;  ///< Shared object file type.
 constexpr half EM_ARM = 40; ///< ARM architecture (0x28).
 
