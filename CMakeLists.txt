@@ -36,3 +36,24 @@ target_compile_features(elf-reader INTERFACE cxx_std_20)
 if(SCL_HOSTED)
     target_compile_definitions(elf-reader INTERFACE SCL_HOSTED)
 endif()
+
+# ---- elf2json: host tool to export ELF as JSON for AetherELF GUI -----------
+set(ELF2JSON_BIN "${CMAKE_BINARY_DIR}/tools/elf2json" CACHE INTERNAL "")
+
+if(NOT TARGET elf2json)
+    add_custom_command(
+        OUTPUT "${ELF2JSON_BIN}"
+        COMMAND ${CMAKE_COMMAND} -E make_directory "${CMAKE_BINARY_DIR}/tools"
+        COMMAND c++ -std=c++20
+                "${CMAKE_CURRENT_SOURCE_DIR}/tools/elf2json.cpp"
+                "${CMAKE_CURRENT_SOURCE_DIR}/src/elf-image.cpp"
+                "-I${CMAKE_CURRENT_SOURCE_DIR}/include"
+                -o "${ELF2JSON_BIN}"
+        DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/tools/elf2json.cpp"
+                "${CMAKE_CURRENT_SOURCE_DIR}/src/elf-image.cpp"
+                "${CMAKE_CURRENT_SOURCE_DIR}/include/loader/elf-image.hpp"
+        COMMENT "Building C++20 elf2json host tool"
+        VERBATIM
+    )
+    add_custom_target(elf2json DEPENDS "${ELF2JSON_BIN}")
+endif()
