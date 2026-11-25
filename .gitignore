@@ -2,7 +2,13 @@ build/
 *.o
 *.a
 *.elf
+# Test fixtures are inputs, not build outputs: keep them tracked.
+!test/411ce-100Mhz.elf
+!test-arm/411ce-100Mhz-stripped.elf
 *.bin
 
 # Compiled host tools
 tools/elf2json
+
+# Out-of-tree test builds
+build*/
